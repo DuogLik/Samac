@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chiến Thắng!</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #fdf2e9;
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+
+        .game-container {
+            position: relative;
+            background-color: #fff8e1;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            font-size: 2em;
+            margin-bottom: 20px;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            margin-top: 20px;
+            border: none;
+            border-radius: 5px;
+            background-color: #ff9800;
+            color: white;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #f57c00;
+        }
+
+        #chest {
+            max-width: 200px;
+            margin-top: 20px;
+        }
+
+        #treasure {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            z-index: 1;
+        }
+
+        #play-again {
+            display: none;
+            position: fixed;
+            bottom: 20px; /* Nút sẽ ở gần đáy màn hình, cách mép dưới 20px */
+            left: 50%;
+            transform: translateX(-50%); /* Căn giữa nút theo chiều ngang */
+            z-index: 3;
+        }
+    </style>
+</head>
+<body>
+    <div class="game-container">
+        <h1>Chúc mừng🌹! Chị đã tìm thấy kho báu!</h1>
+        <!-- Hình ảnh hộp kho báu -->
+        <img id="chest" src="{{ url_for('static', filename='treasure_image.jpg') }}" alt="Hộp Kho Báu" style="max-width: 200px; margin-top: 20px;">
+        <!-- Nút mở kho báu -->
+        <button id="open-treasure" onclick="showTreasure()">Mở Kho Báu</button>
+
+        <!-- Hình ảnh kho báu thực sự (ẩn ban đầu) -->
+        <img id="treasure" src="{{ url_for('static', filename='khobau.png') }}" alt="Kho Báu" style="display:none; max-width: 100%; margin-top: 20px;">
+
+            <!-- Nút chơi lại (ẩn ban đầu) -->
+            <a id="play-again" href="{{ url_for('index') }}" style="display:none;">
+                <button>Chơi Lại</button>
+            </a>
+        </div>
+    </div>
+
+    <script>
+        function showTreasure() {
+            // Hiển thị kho báu thực sự và ẩn hộp kho báu, nút mở kho báu
+            document.getElementById('treasure').style.display = 'block';
+            document.getElementById('chest').style.display = 'none';
+            document.getElementById('open-treasure').style.display = 'none';
+
+            // Hiển thị nút chơi lại
+            document.getElementById('play-again').style.display = 'block';
+        }
+    </script>
+</body>
+</html>

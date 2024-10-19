@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tìm Kho Báu Sa Mạc</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="game-container">
+        <h1>Tìm Kho Báu Sa Mạc</h1>
+        <form method="POST">
+            <h2>{{ question['question'] }}</h2>
+            {% for option in question['options'] %}
+                <input type="radio" name="answer" value="{{ option[0] }}" required> {{ option }}<br>
+            {% endfor %}
+            <button type="submit">Gửi Đáp Án</button>
+        </form>
+        {% if message %}
+            <p>{{ message }}</p>
+        {% endif %}
+    </div>
+</body>
+</html>
