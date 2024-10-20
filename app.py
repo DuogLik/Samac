@@ -42,7 +42,7 @@ questions = [
 
 # Hàm lưu tất cả các lựa chọn vào file CSV
 def save_results_to_csv(answers, start_time):
-    filename = 'https://github.com/DuogLik/Samac/edit/main/game_results.csv'
+    filename = 'https://github.com/DuogLik/Samac/game_results.csv'
     start_time_str = start_time.strftime('%Y-%m-%d %H:%M:%S')
 
     # Ghi kết quả vào file CSV
