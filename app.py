@@ -42,9 +42,10 @@ questions = [
 
 # Hàm lưu tất cả các lựa chọn vào file CSV
 def save_results_to_csv(answers, start_time):
-    filename = 'game_results.csv'
+    filename = 'https://github.com/DuogLik/Samac/edit/main/game_results.csv'
     start_time_str = start_time.strftime('%Y-%m-%d %H:%M:%S')
 
+    # Ghi kết quả vào file CSV
     with open(filename, mode='a', newline='', encoding='utf-8') as file:
         writer = csv.writer(file)
         if file.tell() == 0:
@@ -59,18 +60,18 @@ def save_results_to_csv(answers, start_time):
                 'Đúng' if answer['selected_answer'] == answer['correct_answer'] else 'Sai',
                 start_time_str
             ])
-    
-    # Đẩy file CSV lên GitHub
-    push_to_github()
 
-def push_to_github():
-    # Chuyển đến thư mục chứa repo của bạn
-    os.chdir('https://github.com/DuogLik/Samac')  # Đường dẫn đến thư mục chứa repo
+    # Ghi vào GitHub (nếu cần)
+    push_to_github(filename)
 
-    # Thực hiện các lệnh git để commit và push
-    subprocess.call(['git', 'add', 'game_results.csv'])
-    subprocess.call(['git', 'commit', '-m', 'Update game results'])
-    subprocess.call(['git', 'push'])
+def push_to_github(filename):
+    # Chạy lệnh git để add, commit và push
+    try:
+        subprocess.run(["git", "add", filename], check=True)
+        subprocess.run(["git", "commit", "-m", "Cập nhật kết quả trò chơi"], check=True)
+        subprocess.run(["git", "push"], check=True)
+    except Exception as e:
+        print(f"Lỗi khi push lên GitHub: {e}")
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
