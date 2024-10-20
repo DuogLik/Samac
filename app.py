@@ -65,7 +65,7 @@ def save_results_to_csv(answers, start_time):
 
 def push_to_github():
     # Chuyển đến thư mục chứa repo của bạn
-    os.chdir('/path/to/your/repo')  # Đường dẫn đến thư mục chứa repo
+    os.chdir('https://github.com/DuogLik/Samac')  # Đường dẫn đến thư mục chứa repo
 
     # Thực hiện các lệnh git để commit và push
     subprocess.call(['git', 'add', 'game_results.csv'])
