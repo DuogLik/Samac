@@ -1,8 +1,6 @@
 from flask import Flask, render_template, request, redirect, url_for, session
 import csv
 from datetime import datetime
-import os
-import subprocess
 
 app = Flask(__name__)
 app.secret_key = 'secret_key'
@@ -42,10 +40,9 @@ questions = [
 
 # Hàm lưu tất cả các lựa chọn vào file CSV
 def save_results_to_csv(answers, start_time):
-    filename = 'https://github.com/DuogLik/Samac/game_results.csv'
+    filename = 'game_results.csv'
     start_time_str = start_time.strftime('%Y-%m-%d %H:%M:%S')
 
-    # Ghi kết quả vào file CSV
     with open(filename, mode='a', newline='', encoding='utf-8') as file:
         writer = csv.writer(file)
         if file.tell() == 0:
@@ -60,18 +57,6 @@ def save_results_to_csv(answers, start_time):
                 'Đúng' if answer['selected_answer'] == answer['correct_answer'] else 'Sai',
                 start_time_str
             ])
-
-    # Ghi vào GitHub (nếu cần)
-    push_to_github(filename)
-
-def push_to_github(filename):
-    # Chạy lệnh git để add, commit và push
-    try:
-        subprocess.run(["git", "add", filename], check=True)
-        subprocess.run(["git", "commit", "-m", "Cập nhật kết quả trò chơi"], check=True)
-        subprocess.run(["git", "push"], check=True)
-    except Exception as e:
-        print(f"Lỗi khi push lên GitHub: {e}")
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
