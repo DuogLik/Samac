@@ -45,7 +45,6 @@ def save_results_to_csv(answers, start_time):
     filename = 'game_results.csv'
     start_time_str = start_time.strftime('%Y-%m-%d %H:%M:%S')
 
-    # Ghi kết quả vào file CSV
     with open(filename, mode='a', newline='', encoding='utf-8') as file:
         writer = csv.writer(file)
         if file.tell() == 0:
@@ -60,18 +59,18 @@ def save_results_to_csv(answers, start_time):
                 'Đúng' if answer['selected_answer'] == answer['correct_answer'] else 'Sai',
                 start_time_str
             ])
+    
+    # Đẩy file CSV lên GitHub
+    push_to_github()
 
-    # Ghi vào GitHub (nếu cần)
-    push_to_github(filename)
+def push_to_github():
+    # Chuyển đến thư mục chứa repo của bạn
+    os.chdir('/path/to/your/repo')  # Đường dẫn đến thư mục chứa repo
 
-def push_to_github(filename):
-    # Chạy lệnh git để add, commit và push
-    try:
-        subprocess.run(["git", "add", filename], check=True)
-        subprocess.run(["git", "commit", "-m", "Cập nhật kết quả trò chơi"], check=True)
-        subprocess.run(["git", "push"], check=True)
-    except Exception as e:
-        print(f"Lỗi khi push lên GitHub: {e}")
+    # Thực hiện các lệnh git để commit và push
+    subprocess.call(['git', 'add', 'game_results.csv'])
+    subprocess.call(['git', 'commit', '-m', 'Update game results'])
+    subprocess.call(['git', 'push'])
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
